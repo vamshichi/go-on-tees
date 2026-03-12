@@ -2,7 +2,7 @@ import ProductCard from "@/components/products/ProductCard"
 import { T } from "@/components/home/GlobalStyle"
 
 async function getProducts() {
- const res = await fetch("/api/products", {
+ const res = await fetch("https://go-on-tees.vercel.app/api/products", {
   cache: "no-store"
  })
 
