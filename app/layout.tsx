@@ -4,6 +4,7 @@ import "./globals.css";
 import CartDrawer from "@/components/cart/CartDrawer"
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import WhatsAppFloat from "@/components/WhatsAppFloat";
 
 
 const geistSans = Geist({
@@ -34,6 +35,7 @@ export default function RootLayout({
         <Navbar />
         {children}
         <CartDrawer />
+        <WhatsAppFloat />
         <Footer />
       </body>
     </html>
