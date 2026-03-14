@@ -1,18 +1,27 @@
 import ProductCard from "@/components/products/ProductCard"
 import { T } from "@/components/home/GlobalStyle"
 
-async function getProducts() {
- const res = await fetch("https://go-on-tees.vercel.app/api/products", {
-  cache: "no-store"
- })
+async function getProducts(searchParams:any) {
+
+ const query = new URLSearchParams()
+
+ if(searchParams.gsm) query.append("gsm", searchParams.gsm)
+ if(searchParams.category) query.append("category", searchParams.category)
+
+ const res = await fetch(
+  `https://go-on-tees.vercel.app/api/products?${query.toString()}`,
+  { cache: "no-store" }
+ )
 
  return res.json()
 }
 
-export default async function Shop() {
+export default async function Shop({ searchParams }: any) {
 
- const products = await getProducts()
+ const params = await searchParams
 
+ const products = await getProducts(params)
+ 
  return (
 
   <div
@@ -29,20 +38,6 @@ export default async function Shop() {
      margin: "0 auto"
     }}
    >
-
-    {/* Title */}
-
-    <h1
-     style={{
-      fontFamily: T.fontDisplay,
-      fontSize: "3rem",
-      color: T.neon,
-      textShadow: "0 0 20px rgba(0,200,255,0.6)",
-      marginBottom: "2rem"
-     }}
-    >
-     Shop T-Shirts
-    </h1>
 
     <div
      style={{

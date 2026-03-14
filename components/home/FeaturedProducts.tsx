@@ -1,22 +1,14 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import SectionHeader from "./SectionHeader"
 import { T } from "./GlobalStyle"
 
-const PRODUCTS = [
- { id:1, name:"Essential Crew Tee", gsm:"180 GSM", price:"₹599", old:"₹799", badge:"NEW", emoji:"👕" },
- { id:2, name:"Heavyweight Drop Shoulder", gsm:"260 GSM", price:"₹899", old:"₹1099", badge:"HOT", emoji:"🧥" },
- { id:3, name:"Classic Fit Women", gsm:"200 GSM", price:"₹649", old:"₹849", badge:null, emoji:"👚" },
- { id:4, name:"Streetwear Oversized", gsm:"300 GSM", price:"₹1099", old:"₹1399", badge:"BEST", emoji:"🫧" },
-]
-
-function ProductCard({ product, wished, onWish }: any) {
+function ProductCard({ product }: any) {
 
  const [hover, setHover] = useState(false)
 
  return (
-
   <div
    onMouseEnter={() => setHover(true)}
    onMouseLeave={() => setHover(false)}
@@ -29,26 +21,14 @@ function ProductCard({ product, wished, onWish }: any) {
    }}
   >
 
-   <div
+   <img
+    src={product.image}
     style={{
      width: "100%",
      aspectRatio: "1",
-     display: "flex",
-     alignItems: "center",
-     justifyContent: "center"
+     objectFit: "cover"
     }}
-   >
-
-    <span
-     style={{
-      fontSize: "3.5rem",
-      filter: "drop-shadow(0 0 20px rgba(0,200,255,0.6))"
-     }}
-    >
-     {product.emoji}
-    </span>
-
-   </div>
+   />
 
    <div style={{ padding: "1.2rem" }}>
 
@@ -60,7 +40,7 @@ function ProductCard({ product, wished, onWish }: any) {
       color: T.neon
      }}
     >
-     {product.gsm}
+     {product.gsm} GSM
     </div>
 
     <div
@@ -74,12 +54,7 @@ function ProductCard({ product, wished, onWish }: any) {
      {product.name}
     </div>
 
-    <div
-     style={{
-      display: "flex",
-      justifyContent: "space-between"
-     }}
-    >
+    <div style={{ display: "flex", justifyContent: "space-between" }}>
 
      <span
       style={{
@@ -88,7 +63,7 @@ function ProductCard({ product, wished, onWish }: any) {
        color: T.neon
       }}
      >
-      {product.price}
+      ₹{product.price}
      </span>
 
      <button
@@ -108,13 +83,20 @@ function ProductCard({ product, wished, onWish }: any) {
    </div>
 
   </div>
-
  )
 }
 
 export default function FeaturedProducts() {
 
- const [wished, setWished] = useState({})
+ const [products,setProducts] = useState([])
+
+ useEffect(()=>{
+
+  fetch("/api/products")
+  .then(res=>res.json())
+  .then(data=>setProducts(data))
+
+ },[])
 
  return (
 
@@ -142,15 +124,11 @@ export default function FeaturedProducts() {
      }}
     >
 
-     {PRODUCTS.map(p => (
+     {products.map((p:any)=>(
 
       <ProductCard
        key={p.id}
        product={p}
-    //    wished={!!wished[p.id]}
-       onWish={() =>
-        setWished((w:any) => ({ ...w, [p.id]: !w[p.id] }))
-       }
       />
 
      ))}

@@ -5,10 +5,10 @@ import SectionHeader from "./SectionHeader"
 import { T } from "./GlobalStyle"
 
 const CATEGORIES = [
- { name: "Men T-Shirts", icon: "👕", url: "/shop?category=men" },
- { name: "Women T-Shirts", icon: "👚", url: "/shop?category=women" },
- { name: "Men Oversized", icon: "🧥", url: "/shop?category=men-oversized" },
- { name: "Women Oversized", icon: "🫧", url: "/shop?category=women-oversized" }
+ { name: "Men T-Shirts", icon: "", url: "/shop?category=men" },
+ { name: "Women T-Shirts", icon: "", url: "/shop?category=women" },
+ { name: "Men Oversized", icon: "", url: "/shop?category=men-oversized" },
+ { name: "Women Oversized", icon: "", url: "/shop?category=women-oversized" }
 ]
 
 function CatCard({ cat, last }: any) {

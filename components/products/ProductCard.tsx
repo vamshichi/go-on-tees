@@ -20,7 +20,7 @@ export default function ProductCard({ product }: any) {
     className="rounded-lg"
    />
 
-   <h2 className="mt-3 font-semibold">
+   <h2 className="mt-3 font-semibold text-white">
     {product.name}
    </h2>
 
@@ -28,7 +28,7 @@ export default function ProductCard({ product }: any) {
     {product.gsm} GSM
    </p>
 
-   <p className="font-bold mt-2">
+   <p className="font-bold mt-2 text-white">
     ₹{product.price}
    </p>
 
