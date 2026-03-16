@@ -1,28 +1,80 @@
+"use client"
+
+import { useEffect } from "react"
+import { useRouter } from "next/navigation"
 import Link from "next/link"
+import { T } from "@/components/home/GlobalStyle"
 
-export default function AdminPage() {
+export default function AdminPage(){
 
- return (
+ const router = useRouter()
 
-  <div className="p-10">
+ useEffect(()=>{
 
-   <h1 className="text-3xl font-bold mb-6">
-    Admin Dashboard
-   </h1>
+  const admin = localStorage.getItem("admin")
 
-   <div className="grid grid-cols-3 gap-6">
+  if(!admin){
+   router.push("/admin-login")
+  }
 
-    <Link href="/admin/products" className="border p-6 rounded">
-     Products
-    </Link>
+ },[])
 
-    <Link href="/admin/orders" className="border p-6 rounded">
-     Orders
-    </Link>
+ const cards = [
+  { name:"Products", url:"/admin/products", icon:"📦", desc:"Manage all store products" },
+  { name:"Orders", url:"/admin/orders", icon:"🧾", desc:"Track customer orders" },
+  { name:"Users", url:"/admin/users", icon:"👤", desc:"View registered users" }
+ ]
 
-    <Link href="/admin/users" className="border p-6 rounded">
-     Users
-    </Link>
+ return(
+
+  <div
+   style={{
+    minHeight:"100vh",
+    background:T.bgDark,
+    padding:"3rem 1.5rem"
+   }}
+  >
+
+   <div style={{maxWidth:1100,margin:"0 auto"}}>
+
+    <h1
+     style={{
+      fontFamily:T.fontDisplay,
+      fontSize:"2.5rem",
+      color:T.neon,
+      marginBottom:"2rem"
+     }}
+    >
+     Admin Dashboard
+    </h1>
+
+    <div className="admin-grid">
+
+     {cards.map(card =>(
+
+      <Link
+       key={card.name}
+       href={card.url}
+       className="admin-card"
+      >
+
+       <div className="admin-icon">
+        {card.icon}
+       </div>
+
+       <h2 className="admin-title">
+        {card.name}
+       </h2>
+
+       <p className="admin-desc">
+        {card.desc}
+       </p>
+
+      </Link>
+
+     ))}
+
+    </div>
 
    </div>
 

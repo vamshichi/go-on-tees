@@ -11,26 +11,27 @@ const CATEGORIES = [
  { name: "Women Oversized", icon: "", url: "/shop?category=women-oversized" }
 ]
 
-function CatCard({ cat, last }: any) {
+function CatCard({ cat }: any) {
 
- const [hover, setHover] = useState(false)
+ const [hover,setHover] = useState(false)
 
  return (
 
   <a
    href={cat.url}
-   onMouseEnter={() => setHover(true)}
-   onMouseLeave={() => setHover(false)}
+   onMouseEnter={()=>setHover(true)}
+   onMouseLeave={()=>setHover(false)}
    style={{
     background: hover ? "rgba(0,200,255,0.04)" : T.bgCard,
-    padding: "2.5rem 1.5rem",
+    padding: "2rem 1rem",
     textDecoration: "none",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    gap: "1rem",
-    borderRight: last ? "none" : "1px solid rgba(0,200,255,0.2)",
-    position: "relative"
+    justifyContent: "center",
+    gap: "0.8rem",
+    border: "1px solid rgba(0,200,255,0.2)",
+    transition: "all 0.25s"
    }}
   >
 
@@ -49,9 +50,11 @@ function CatCard({ cat, last }: any) {
     style={{
      fontFamily: T.fontUI,
      fontWeight: 700,
-     letterSpacing: "0.1em",
+     letterSpacing: "0.08em",
      textTransform: "uppercase",
-     color: hover ? T.neon : "rgba(255,255,255,0.75)"
+     fontSize: "0.85rem",
+     color: hover ? T.neon : "rgba(255,255,255,0.75)",
+     textAlign:"center"
     }}
    >
     {cat.name}
@@ -66,19 +69,19 @@ export default function Categories() {
 
  return (
 
-  <div
+  <section
    style={{
-    background: "rgba(2,12,22,0.8)",
-    borderTop: "1px solid rgba(0,200,255,0.06)",
-    borderBottom: "1px solid rgba(0,200,255,0.06)"
+    background:"rgba(2,12,22,0.8)",
+    borderTop:"1px solid rgba(0,200,255,0.06)",
+    borderBottom:"1px solid rgba(0,200,255,0.06)"
    }}
   >
 
    <div
     style={{
-     maxWidth: 1200,
-     margin: "0 auto",
-     padding: "6rem 2rem"
+     maxWidth:1200,
+     margin:"0 auto",
+     padding:"4rem 1.5rem"
     }}
    >
 
@@ -89,26 +92,22 @@ export default function Categories() {
     />
 
     <div
+     className="category-grid"
      style={{
-      display: "grid",
-      gridTemplateColumns: "repeat(4,1fr)",
-      border: "1px solid rgba(0,200,255,0.2)"
+      display:"grid",
+      gap:"1rem"
      }}
     >
 
-     {CATEGORIES.map((c, i) => (
-      <CatCard
-       key={c.name}
-       cat={c}
-       last={i === CATEGORIES.length - 1}
-      />
+     {CATEGORIES.map((c)=>(
+      <CatCard key={c.name} cat={c}/>
      ))}
 
     </div>
 
    </div>
 
-  </div>
+  </section>
 
  )
 }

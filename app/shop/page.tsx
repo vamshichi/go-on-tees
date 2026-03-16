@@ -1,5 +1,6 @@
 import ProductCard from "@/components/products/ProductCard"
 import { T } from "@/components/home/GlobalStyle"
+import Link from "next/link"
 
 async function getProducts(searchParams:any) {
 
@@ -19,49 +20,47 @@ async function getProducts(searchParams:any) {
 export default async function Shop({ searchParams }: any) {
 
  const params = await searchParams
-
  const products = await getProducts(params)
- 
+
  return (
 
   <div
    style={{
-    background: T.bgDark,
-    minHeight: "100vh",
-    padding: "4rem 2rem"
+    background:T.bgDark,
+    minHeight:"100vh",
+    padding:"3rem 1.5rem"
    }}
   >
 
    <div
     style={{
-     maxWidth: 1200,
-     margin: "0 auto"
+     maxWidth:1200,
+     margin:"0 auto"
     }}
    >
 
-    <div
-     style={{
-      display: "grid",
-      gridTemplateColumns: "260px 1fr",
-      gap: "2rem"
-     }}
-    >
+    {/* LAYOUT */}
 
-     {/* Sidebar */}
+    <div className="shop-layout">
 
-     <div
+     {/* SIDEBAR */}
+
+     <aside
       style={{
-       background: T.bgCard,
-       border: "1px solid rgba(0,200,255,0.2)",
-       padding: "2rem"
+       background:T.bgCard,
+       border:"1px solid rgba(0,200,255,0.2)",
+       padding:"1.5rem",
+       height:"fit-content"
       }}
      >
 
+      {/* GSM */}
+
       <h2
        style={{
-        fontFamily: T.fontUI,
-        color: T.neon,
-        marginBottom: "1rem"
+        fontFamily:T.fontUI,
+        color:T.neon,
+        marginBottom:"1rem"
        }}
       >
        Filter by GSM
@@ -69,37 +68,41 @@ export default async function Shop({ searchParams }: any) {
 
       <ul
        style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "0.6rem",
-        marginBottom: "2rem"
+        display:"flex",
+        flexDirection:"column",
+        gap:"0.6rem",
+        marginBottom:"2rem"
        }}
       >
 
        {[140,160,180,200,240,260,280,300].map(gsm=>(
+
         <li key={gsm}>
-         <a
+
+         <Link
           href={`/shop?gsm=${gsm}`}
           style={{
-           color: "rgba(255,255,255,0.7)",
-           textDecoration: "none"
+           color:"rgba(255,255,255,0.7)",
+           textDecoration:"none"
           }}
          >
           {gsm} GSM
-         </a>
+         </Link>
+
         </li>
+
        ))}
 
       </ul>
 
 
-      {/* Category */}
+      {/* CATEGORY */}
 
       <h2
        style={{
-        fontFamily: T.fontUI,
-        color: T.neon,
-        marginBottom: "1rem"
+        fontFamily:T.fontUI,
+        color:T.neon,
+        marginBottom:"1rem"
        }}
       >
        Category
@@ -107,53 +110,58 @@ export default async function Shop({ searchParams }: any) {
 
       <ul
        style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "0.6rem"
+        display:"flex",
+        flexDirection:"column",
+        gap:"0.6rem"
        }}
       >
 
        <li>
-        <a href="/shop?category=men" style={{color:"rgba(255,255,255,0.7)"}}>
+        <Link href="/shop?category=men" style={{color:"rgba(255,255,255,0.7)"}}>
          Men
-        </a>
+        </Link>
        </li>
 
        <li>
-        <a href="/shop?category=women" style={{color:"rgba(255,255,255,0.7)"}}>
+        <Link href="/shop?category=women" style={{color:"rgba(255,255,255,0.7)"}}>
          Women
-        </a>
+        </Link>
        </li>
 
        <li>
-        <a href="/shop?category=men-oversized" style={{color:"rgba(255,255,255,0.7)"}}>
+        <Link href="/shop?category=men-oversized" style={{color:"rgba(255,255,255,0.7)"}}>
          Men Oversized
-        </a>
+        </Link>
        </li>
 
        <li>
-        <a href="/shop?category=women-oversized" style={{color:"rgba(255,255,255,0.7)"}}>
+        <Link href="/shop?category=women-oversized" style={{color:"rgba(255,255,255,0.7)"}}>
          Women Oversized
-        </a>
+        </Link>
        </li>
 
       </ul>
 
-     </div>
+     </aside>
 
 
-     {/* Products */}
+     {/* PRODUCTS */}
 
      <div
       style={{
-       display: "grid",
-       gridTemplateColumns: "repeat(auto-fill,minmax(240px,1fr))",
-       gap: "1.5rem"
+       display:"grid",
+       gridTemplateColumns:"repeat(auto-fill,minmax(220px,1fr))",
+       gap:"1.5rem"
       }}
      >
 
       {products.map((product:any)=>(
-       <ProductCard key={product.id} product={product}/>
+
+       <ProductCard
+        key={product.id}
+        product={product}
+       />
+
       ))}
 
      </div>

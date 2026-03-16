@@ -40,9 +40,9 @@ function FeatureCard({ f }: any){
    style={{
     background: hover ? "rgba(0,200,255,0.03)" : "rgba(3,18,35,0.8)",
     border: hover ? "1px solid rgba(0,200,255,0.4)" : "1px solid rgba(0,200,255,0.2)",
-    padding:"2.5rem",
+    padding:"1.8rem",
     display:"flex",
-    gap:"1.5rem",
+    gap:"1rem",
     alignItems:"flex-start",
     transition:"all 0.3s",
     transform: hover ? "translateX(4px)" : "none"
@@ -51,13 +51,13 @@ function FeatureCard({ f }: any){
 
    <div
     style={{
-     width:52,
-     height:52,
+     minWidth:46,
+     height:46,
      border:"1px solid rgba(0,200,255,0.3)",
      display:"flex",
      alignItems:"center",
      justifyContent:"center",
-     fontSize:"1.4rem"
+     fontSize:"1.2rem"
     }}
    >
     {f.icon}
@@ -68,7 +68,7 @@ function FeatureCard({ f }: any){
     <div
      style={{
       fontFamily:T.fontUI,
-      fontSize:"1.15rem",
+      fontSize:"1rem",
       fontWeight:700,
       letterSpacing:"0.06em",
       textTransform:"uppercase",
@@ -81,9 +81,9 @@ function FeatureCard({ f }: any){
 
     <div
      style={{
-      fontSize:"0.83rem",
+      fontSize:"0.82rem",
       color:T.textMuted,
-      lineHeight:1.65
+      lineHeight:1.6
      }}
     >
      {f.desc}
@@ -100,7 +100,7 @@ export default function WhyUs(){
 
  return(
 
-  <div
+  <section
    style={{
     background:"#020810",
     borderTop:"1px solid rgba(0,200,255,0.06)"
@@ -111,7 +111,7 @@ export default function WhyUs(){
     style={{
      maxWidth:1200,
      margin:"0 auto",
-     padding:"6rem 2rem"
+     padding:"4rem 1.5rem"
     }}
    >
 
@@ -121,11 +121,13 @@ export default function WhyUs(){
      accent="Go-On Tees"
     />
 
+    {/* FEATURES GRID */}
+
     <div
+     className="why-grid"
      style={{
       display:"grid",
-      gridTemplateColumns:"repeat(2,1fr)",
-      gap:"1.5rem"
+      gap:"1.2rem"
      }}
     >
 
@@ -135,24 +137,29 @@ export default function WhyUs(){
 
     </div>
 
+    {/* CTA */}
+
     <div
+     className="why-cta"
      style={{
-      marginTop:"4rem",
+      marginTop:"3rem",
       border:"1px solid rgba(0,200,255,0.2)",
-      padding:"3rem",
+      padding:"2rem",
       display:"flex",
+      gap:"1.5rem",
       alignItems:"center",
       justifyContent:"space-between",
-      background:"rgba(0,200,255,0.02)"
+      background:"rgba(0,200,255,0.02)",
+      flexWrap:"wrap"
      }}
     >
 
-     <div>
+     <div style={{maxWidth:500}}>
 
       <div
        style={{
         fontFamily:T.fontDisplay,
-        fontSize:"2rem",
+        fontSize:"1.7rem",
         color:"#fff"
        }}
       >
@@ -163,7 +170,7 @@ export default function WhyUs(){
        style={{
         fontSize:"0.85rem",
         color:T.textMuted,
-        marginTop:"0.3rem"
+        marginTop:"0.4rem"
        }}
       >
        Free shipping above ₹999 · Easy returns · Custom bulk orders
@@ -179,7 +186,7 @@ export default function WhyUs(){
 
    </div>
 
-  </div>
+  </section>
 
  )
 }

@@ -9,13 +9,13 @@ function ProductCard({ product }: any) {
  const [hover, setHover] = useState(false)
 
  return (
+
   <div
    onMouseEnter={() => setHover(true)}
    onMouseLeave={() => setHover(false)}
    style={{
     background: T.bgCard,
     border: "1px solid rgba(0,200,255,0.2)",
-    position: "relative",
     transition: "all 0.35s",
     transform: hover ? "translateY(-4px)" : "none"
    }}
@@ -83,6 +83,7 @@ function ProductCard({ product }: any) {
    </div>
 
   </div>
+
  )
 }
 
@@ -93,20 +94,20 @@ export default function FeaturedProducts() {
  useEffect(()=>{
 
   fetch("/api/products")
-  .then(res=>res.json())
-  .then(data=>setProducts(data))
+   .then(res=>res.json())
+   .then(data=>setProducts(data))
 
  },[])
 
  return (
 
-  <div style={{ background: T.bgDark }}>
+  <section style={{ background: T.bgDark }}>
 
    <div
     style={{
-     maxWidth: 1200,
-     margin: "0 auto",
-     padding: "6rem 2rem"
+     maxWidth:1200,
+     margin:"0 auto",
+     padding:"4rem 1.5rem"
     }}
    >
 
@@ -118,26 +119,24 @@ export default function FeaturedProducts() {
 
     <div
      style={{
-      display: "grid",
-      gridTemplateColumns: "repeat(4,1fr)",
-      gap: "1.2rem"
+      display:"grid",
+      gridTemplateColumns:"repeat(auto-fit,minmax(240px,1fr))",
+      gap:"1.2rem"
      }}
     >
 
-     {products.map((p:any)=>(
-
+     {products.slice(0,4).map((p:any)=>(
       <ProductCard
        key={p.id}
        product={p}
       />
-
      ))}
 
     </div>
 
    </div>
 
-  </div>
+  </section>
 
  )
 }

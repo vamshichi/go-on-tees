@@ -5,6 +5,8 @@ import CartDrawer from "@/components/cart/CartDrawer"
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
+import { SessionProvider } from "next-auth/react";
+import Providers from "@/components/Providers";
 
 
 const geistSans = Geist({
@@ -32,11 +34,13 @@ export default function RootLayout({
       <body
        
       >
+         <Providers>
         <Navbar />
         {children}
         <CartDrawer />
         <WhatsAppFloat />
         <Footer />
+        </Providers>
       </body>
     </html>
   );
