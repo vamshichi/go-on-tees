@@ -59,10 +59,10 @@ export default function Navbar() {
      }}
     >
       <Image
-  src="/t-logo-bg.png"   // place logo in public/logo.png
+  src="/got.png"   // place logo in public/logo.png
   alt="GO-ON TEES"
-  width={50}
-  height={50}
+  width={80}
+  height={80}
  />
     </Link>
 

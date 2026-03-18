@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react"
 import SectionHeader from "./SectionHeader"
 import { T } from "./GlobalStyle"
+import Link from "next/link"
+import Image from "next/image"
 
 function ProductCard({ product }: any) {
 
@@ -10,79 +12,85 @@ function ProductCard({ product }: any) {
 
  return (
 
-  <div
-   onMouseEnter={() => setHover(true)}
-   onMouseLeave={() => setHover(false)}
-   style={{
-    background: T.bgCard,
-    border: "1px solid rgba(0,200,255,0.2)",
-    transition: "all 0.35s",
-    transform: hover ? "translateY(-4px)" : "none"
-   }}
+  <Link
+   href={`/products/${product.slug}`}
+   style={{ textDecoration: "none" }}
   >
 
-   <img
-    src={product.image}
+   <div
+    onMouseEnter={() => setHover(true)}
+    onMouseLeave={() => setHover(false)}
     style={{
-     width: "100%",
-     aspectRatio: "1",
-     objectFit: "cover"
+     background: T.bgCard,
+     border: "1px solid rgba(0,200,255,0.2)",
+     transition: "all 0.35s",
+     transform: hover ? "translateY(-4px)" : "none"
     }}
-   />
+   >
 
-   <div style={{ padding: "1.2rem" }}>
+    <Image
+        src={product.image}
+        alt={product.name}
+        width={300}
+        height={300}
+        className="rounded-lg"
+       />
 
-    <div
-     style={{
-      fontSize: "0.65rem",
-      letterSpacing: "0.2em",
-      textTransform: "uppercase",
-      color: T.neon
-     }}
-    >
-     {product.gsm} GSM
-    </div>
+    <div style={{ padding: "1.2rem" }}>
 
-    <div
-     style={{
-      fontFamily: T.fontUI,
-      fontWeight: 700,
-      color: "white",
-      marginBottom: "0.8rem"
-     }}
-    >
-     {product.name}
-    </div>
-
-    <div style={{ display: "flex", justifyContent: "space-between" }}>
-
-     <span
+     <div
       style={{
-       fontFamily: T.fontDisplay,
-       fontSize: "1.4rem",
+       fontSize: "0.65rem",
+       letterSpacing: "0.2em",
+       textTransform: "uppercase",
        color: T.neon
       }}
      >
-      ₹{product.price}
-     </span>
+      {product.gsm} GSM
+     </div>
 
-     <button
+     <div
       style={{
-       border: "1px solid rgba(0,200,255,0.3)",
-       color: T.neon,
-       fontSize: "0.7rem",
-       padding: "0.4rem 0.9rem",
-       cursor: "pointer"
+       fontFamily: T.fontUI,
+       fontWeight: 700,
+       color: "white",
+       marginBottom: "0.8rem"
       }}
      >
-      Add +
-     </button>
+      {product.name}
+     </div>
+
+     <div style={{ display: "flex", justifyContent: "space-between" }}>
+
+      <span
+       style={{
+        fontFamily: T.fontDisplay,
+        fontSize: "1.4rem",
+        color: T.neon
+       }}
+      >
+       ₹{product.price}
+      </span>
+
+      <button
+       style={{
+        border: "1px solid rgba(0,200,255,0.3)",
+        color: T.neon,
+        fontSize: "0.7rem",
+        padding: "0.4rem 0.9rem",
+        cursor: "pointer"
+       }}
+      >
+       Add +
+      </button>
+
+     </div>
 
     </div>
 
    </div>
 
-  </div>
+  </Link>
 
  )
 }
@@ -126,10 +134,12 @@ export default function FeaturedProducts() {
     >
 
      {products.slice(0,4).map((p:any)=>(
+
       <ProductCard
        key={p.id}
        product={p}
       />
+
      ))}
 
     </div>

@@ -10,6 +10,10 @@ export default function ProductCard({ product }: any) {
 
  return (
 
+      <Link
+   href={`/products/${product.slug}`}
+   style={{ textDecoration:"none" }}
+  >
   <div className="border rounded-xl p-4 hover:shadow-xl transition">
 
    <Image
@@ -48,6 +52,7 @@ export default function ProductCard({ product }: any) {
    </button>
 
   </div>
+  </Link>
 
  )
 }
