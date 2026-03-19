@@ -30,6 +30,7 @@ const handleSubmit = async (e:any) => {
   items: cart.map((item) => ({
    productId: item.id,
    quantity: item.quantity,
+   size: item.size,   // ⭐ IMPORTANT
    price: item.price
   })),
   total

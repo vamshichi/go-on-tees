@@ -52,7 +52,7 @@ export default async function OrdersPage(){
 
        <div key={item.id}>
 
-        {item.product.name} × {item.quantity}
+        {item.product.name} × {item.quantity} x {item.size}
 
        </div>
 

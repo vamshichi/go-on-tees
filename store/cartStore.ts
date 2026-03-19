@@ -1,58 +1,61 @@
 import { create } from "zustand"
 
 interface CartItem {
- id: string
- name: string
- price: number
- image: string
- quantity: number
+  id: string
+  name: string
+  price: number
+  image: string
+  size?: string
+  quantity: number
 }
 
 interface CartState {
- cart: CartItem[]
- isOpen: boolean
+  cart: CartItem[]
+  isOpen: boolean
 
- addToCart: (product: CartItem) => void
- removeFromCart: (id: string) => void
- clearCart: () => void
+  addToCart: (product: CartItem) => void
+  removeFromCart: (id: string, size?: string) => void
+  clearCart: () => void
 
- openCart: () => void
- closeCart: () => void
+  openCart: () => void
+  closeCart: () => void
 }
 
 export const useCartStore = create<CartState>((set) => ({
- cart: [],
- isOpen: false,
+  cart: [],
+  isOpen: false,
 
- addToCart: (product) =>
-  set((state) => {
-   const existing = state.cart.find((item) => item.id === product.id)
+  addToCart: (item) =>
+    set((state) => {
+      const existingItem = state.cart.find(
+        (i) => i.id === item.id && i.size === item.size
+      )
 
-   if (existing) {
-    return {
-     cart: state.cart.map((item) =>
-      item.id === product.id
-       ? { ...item, quantity: item.quantity + 1 }
-       : item
-     ),
-     isOpen: true, // automatically open drawer when item added
-    }
-   }
+      if (existingItem) {
+        return {
+          cart: state.cart.map((i) =>
+            i.id === item.id && i.size === item.size
+              ? { ...i, quantity: i.quantity + item.quantity }
+              : i
+          ),
+        }
+      }
 
-   return {
-    cart: [...state.cart, { ...product, quantity: 1 }],
-    isOpen: true,
-   }
-  }),
+      return {
+        cart: [...state.cart, item],
+      }
+    }),
 
- removeFromCart: (id) =>
-  set((state) => ({
-   cart: state.cart.filter((item) => item.id !== id),
-  })),
+  removeFromCart: (id, size) =>
+    set((state) => ({
+      cart: state.cart.filter(
+        (item) => !(item.id === id && item.size === size)
+      ),
+    })),
 
- clearCart: () => set({ cart: [] }),
+  clearCart: () => set({ cart: [] }),
 
- openCart: () => set({ isOpen: true }),
+  openCart: () => set({ isOpen: true }),
 
- closeCart: () => set({ isOpen: false }),
+  closeCart: () => set({ isOpen: false }),
 }))

@@ -18,6 +18,7 @@ export async function POST(req: Request) {
     create: body.items.map((item:any) => ({
      productId: item.productId,
      quantity: item.quantity,
+     size: item.size,
      price: item.price
     }))
    }

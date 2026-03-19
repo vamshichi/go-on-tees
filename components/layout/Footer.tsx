@@ -61,7 +61,7 @@ export default function Footer() {
       Shop
      </h4>
 
-     <div style={{display:"flex",flexDirection:"column",gap:"0.5rem"}}>
+     <div style={{display:"flex",flexDirection:"column",gap:"0.5rem",color:"#fff"}}>
 
       <Link href="/shop">All Products</Link>
       <Link href="/shop?category=men">Men</Link>
@@ -81,7 +81,7 @@ export default function Footer() {
       Help
      </h4>
 
-     <div style={{display:"flex",flexDirection:"column",gap:"0.5rem"}}>
+     <div style={{display:"flex",flexDirection:"column",gap:"0.5rem",color:"#fff"}}>
 
       <Link href="#">Shipping</Link>
       <Link href="#">Returns</Link>
