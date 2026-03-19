@@ -7,6 +7,7 @@ export async function POST(req:Request){
  const formData = await req.formData()
 
  const name = formData.get("name") as string
+  const description = formData.get("description") as string
  const price = Number(formData.get("price"))
  const gsm = Number(formData.get("gsm"))
  const category = formData.get("category") as string
@@ -31,8 +32,8 @@ export async function POST(req:Request){
  const product = await prisma.product.create({
   data:{
    name,
-   slug:name.toLowerCase().replaceAll(" ","-"),
-   description:"",
+   slug: name.toLowerCase().replace(/\s+/g, "-"),
+   description,
    price,
    gsm,
    category,
