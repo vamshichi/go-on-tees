@@ -44,17 +44,22 @@ export default function EditProduct({ params }: { params: Promise<{ id: string }
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
+ async function handleSubmit(e: React.FormEvent) {
+  e.preventDefault()
 
-    await fetch(`/api/products/${id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form)
+  await fetch(`/api/products/${id}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      ...form,
+      price: Number(form.price),
+      gsm: Number(form.gsm),
+      stock: Number(form.stock)
     })
+  })
 
-    router.push("/admin/products")
-  }
+  router.push("/admin/products")
+}
 
   async function handleDelete() {
     const confirmed = confirm("Are you sure you want to delete this product?")
