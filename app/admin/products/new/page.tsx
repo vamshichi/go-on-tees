@@ -7,6 +7,7 @@ export default function NewProduct(){
 
  const [form,setForm] = useState({
   name:"",
+  description:"",
   price:"",
   gsm:"",
   category:"",
@@ -21,6 +22,7 @@ export default function NewProduct(){
   const data = new FormData()
 
   data.append("name",form.name)
+  data.append("description",form.description)
   data.append("price",form.price)
   data.append("gsm",form.gsm)
   data.append("category",form.category)
@@ -49,6 +51,14 @@ export default function NewProduct(){
      placeholder="Name"
      onChange={(e)=>setForm({...form,name:e.target.value})}
      className="border p-2 w-full"
+    />
+
+    {/* Description */}
+
+    <textarea
+     placeholder="Description"
+     onChange={(e)=>setForm({...form,description:e.target.value})}
+     className="border p-2 w-full h-28"
     />
 
     <input
