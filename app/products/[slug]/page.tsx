@@ -10,9 +10,11 @@ export default async function ProductPage({
   params: Promise<{ slug: string }>
 }) {
   const { slug } = await params
+  const decodedSlug = decodeURIComponent(slug)
 
   const product = await prisma.product.findUnique({
-    where: { slug },
+    
+     where: { slug: decodedSlug }, 
   })
 
   if (!product) notFound()

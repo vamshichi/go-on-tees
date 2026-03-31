@@ -6,42 +6,42 @@ import { useCartStore } from "@/store/cartStore"
 const SIZES = ["S", "M", "L", "XL", "XXL"]
 
 type Props = {
-  product: {
-    id: string
-    name: string
-    price: number
-    image: string
-  }
+    product: {
+        id: string
+        name: string
+        price: number
+        image: string
+    }
 }
 
 export default function ProductControls({ product }: Props) {
-  const [qty, setQty] = useState(1)
-  const [selectedSize, setSelectedSize] = useState<string | null>(null)
-  const [sizeError, setSizeError] = useState(false)
+    const [qty, setQty] = useState(1)
+    const [selectedSize, setSelectedSize] = useState<string | null>(null)
+    const [sizeError, setSizeError] = useState(false)
 
-  const addToCart = useCartStore((s) => s.addToCart)
-  const openCart = useCartStore((s) => s.openCart)
+    const addToCart = useCartStore((s) => s.addToCart)
+    const openCart = useCartStore((s) => s.openCart)
 
-  const handleAddToCart = () => {
-    if (!selectedSize) {
-      setSizeError(true)
-      return
+    const handleAddToCart = () => {
+        if (!selectedSize) {
+            setSizeError(true)
+            return
+        }
+        setSizeError(false)
+        addToCart({
+            id: product.id,
+            size: selectedSize,
+            name: product.name,
+            price: product.price,
+            quantity: qty,
+            image: product.image,
+        })
+        openCart()
     }
-    setSizeError(false)
-    addToCart({
-  id: product.id,
-  size: selectedSize,
-  name: product.name,
-  price: product.price,
-  quantity: qty,
-  image: product.image,
-})
-    openCart()
-  }
 
-  return (
-    <>
-      <style>{`
+    return (
+        <>
+            <style>{`
         /* SIZE SELECTOR */
         .pr-size-row {
           margin-bottom: 20px;
@@ -185,58 +185,58 @@ export default function ProductControls({ product }: Props) {
         .pr-btn-main > * { position: relative; z-index: 1; }
       `}</style>
 
-      {/* SIZE */}
-      <div className="pr-size-row">
-        <div className="pr-size-header">
-          <span className="pr-size-label">Select Size</span>
-          {sizeError && <span className="pr-size-error">Please select a size</span>}
-        </div>
-        <div className="pr-size-btns">
-          {SIZES.map((size) => (
-            <button
-              key={size}
-              className={`pr-size-btn${selectedSize === size ? " selected" : ""}`}
-              onClick={() => { setSelectedSize(size); setSizeError(false) }}
-            >
-              {size}
-            </button>
-          ))}
-        </div>
-      </div>
+            {/* SIZE */}
+            <div className="pr-size-row">
+                <div className="pr-size-header">
+                    <span className="pr-size-label">Select Size</span>
+                    {sizeError && <span className="pr-size-error">Please select a size</span>}
+                </div>
+                <div className="pr-size-btns">
+                    {SIZES.map((size) => (
+                        <button
+                            key={size}
+                            className={`pr-size-btn${selectedSize === size ? " selected" : ""}`}
+                            onClick={() => { setSelectedSize(size); setSizeError(false) }}
+                        >
+                            {size}
+                        </button>
+                    ))}
+                </div>
+            </div>
 
-      {/* QTY */}
-      <div className="pr-qty-row">
-        <span className="pr-qty-label">Qty</span>
-        <div className="pr-qty-ctrl">
-          <button
-            className="pr-qty-btn"
-            onClick={() => setQty(q => Math.max(1, q - 1))}
-            disabled={qty <= 1}
-          >
-            −
-          </button>
-          <span className="pr-qty-val">{qty}</span>
-          <button
-            className="pr-qty-btn"
-            onClick={() => setQty(q => Math.min(99, q + 1))}
-            disabled={qty >= 99}
-          >
-            +
-          </button>
-        </div>
-      </div>
+            {/* QTY */}
+            <div className="pr-qty-row">
+                <span className="pr-qty-label">Qty</span>
+                <div className="pr-qty-ctrl">
+                    <button
+                        className="pr-qty-btn"
+                        onClick={() => setQty(q => Math.max(1, q - 1))}
+                        disabled={qty <= 1}
+                    >
+                        −
+                    </button>
+                    <span className="pr-qty-val">{qty}</span>
+                    <button
+                        className="pr-qty-btn"
+                        onClick={() => setQty(q => Math.min(99, q + 1))}
+                        disabled={qty >= 99}
+                    >
+                        +
+                    </button>
+                </div>
+            </div>
 
-      {/* ADD TO CART */}
-      <div style={{ marginBottom: 24 }}>
-        <button className="pr-btn-main" onClick={handleAddToCart}>
-          <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
-            <path d="M1.5 1.5h1.8l2.1 7.8h6.6l1.5-5.1H4.8" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
-            <circle cx="6.5" cy="12.5" r="1" fill="currentColor" />
-            <circle cx="11" cy="12.5" r="1" fill="currentColor" />
-          </svg>
-          <span>Add to Cart</span>
-        </button>
-      </div>
-    </>
-  )
+            {/* ADD TO CART */}
+            <div style={{ marginBottom: 24 }}>
+                <button className="pr-btn-main" onClick={handleAddToCart}>
+                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                        <path d="M1.5 1.5h1.8l2.1 7.8h6.6l1.5-5.1H4.8" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+                        <circle cx="6.5" cy="12.5" r="1" fill="currentColor" />
+                        <circle cx="11" cy="12.5" r="1" fill="currentColor" />
+                    </svg>
+                    <span>Add to Cart</span>
+                </button>
+            </div>
+        </>
+    )
 }
