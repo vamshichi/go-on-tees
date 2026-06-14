@@ -1,6 +1,7 @@
 // app/products/[slug]/page.tsx  — SERVER COMPONENT (no "use client")
 import { prisma } from "@/lib/prisma"
-import Image from "next/image"
+// import Image from "next/image"
+import ProductGallery from "./ProductGallery"
 import { notFound } from "next/navigation"
 import ProductControls from "./ProductControls"
 
@@ -13,8 +14,8 @@ export default async function ProductPage({
   const decodedSlug = decodeURIComponent(slug)
 
   const product = await prisma.product.findUnique({
-    
-     where: { slug: decodedSlug }, 
+
+    where: { slug: decodedSlug },
   })
 
   if (!product) notFound()
@@ -306,13 +307,9 @@ export default async function ProductPage({
 
           {/* IMAGE COLUMN */}
           <div className="pr-img-col">
-            <Image
-              src={product.image}
-              alt={product.name}
-              fill
-              priority
-              sizes="40vw"
-              style={{ objectFit: "cover" }}
+            <ProductGallery
+              images={product.image}
+              name={product.name}
             />
             <div className="pr-category">
               <span className="pr-category-dot" />
@@ -340,7 +337,7 @@ export default async function ProductPage({
             </h1>
 
             <div className="pr-stars">
-              {["★","★","★","★","★"].map((s, i) => (
+              {["★", "★", "★", "★", "★"].map((s, i) => (
                 <span key={i} className="pr-star">{s}</span>
               ))}
               <span className="pr-star-count">4.9 · 128 reviews</span>
@@ -382,31 +379,31 @@ export default async function ProductPage({
               id: product.id,
               name: product.name,
               price: product.price,
-              image: product.image,
+              image: product.image[0],
             }} />
 
             <div className="pr-trust">
               <div className="pr-trust-item">
                 <svg className="pr-trust-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                  <path d="M10 2L3 6v4c0 4.4 3 8.5 7 9.5 4-1 7-5.1 7-9.5V6L10 2z" stroke="currentColor" strokeWidth="1.3"/>
-                  <path d="M7 10l2 2 4-4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
+                  <path d="M10 2L3 6v4c0 4.4 3 8.5 7 9.5 4-1 7-5.1 7-9.5V6L10 2z" stroke="currentColor" strokeWidth="1.3" />
+                  <path d="M7 10l2 2 4-4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
                 </svg>
-                <span className="pr-trust-label">Authentic<br/>Quality</span>
+                <span className="pr-trust-label">Authentic<br />Quality</span>
               </div>
               <div className="pr-trust-item">
                 <svg className="pr-trust-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                  <rect x="2" y="5" width="16" height="12" rx="1.5" stroke="currentColor" strokeWidth="1.3"/>
-                  <path d="M2 9h16M6 14h2M10 14h4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
+                  <rect x="2" y="5" width="16" height="12" rx="1.5" stroke="currentColor" strokeWidth="1.3" />
+                  <path d="M2 9h16M6 14h2M10 14h4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
                 </svg>
-                <span className="pr-trust-label">Free<br/>Shipping</span>
+                <span className="pr-trust-label">Free<br />Shipping</span>
               </div>
               <div className="pr-trust-item">
                 <svg className="pr-trust-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                  <path d="M4 10a6 6 0 0112 0" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
-                  <path d="M4 10H2l2-3M16 10h2l-2-3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M7 14h6M10 14v2" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
+                  <path d="M4 10a6 6 0 0112 0" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+                  <path d="M4 10H2l2-3M16 10h2l-2-3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M7 14h6M10 14v2" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
                 </svg>
-                <span className="pr-trust-label">30-Day<br/>Returns</span>
+                <span className="pr-trust-label">30-Day<br />Returns</span>
               </div>
             </div>
 

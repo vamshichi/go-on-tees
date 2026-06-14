@@ -29,7 +29,7 @@ function ProductCard({ product }: any) {
    >
 
     <Image
-        src={product.image}
+        src={product.image[0]}
         alt={product.name}
         width={300}
         height={300}

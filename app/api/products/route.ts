@@ -2,47 +2,51 @@ import { prisma } from "@/lib/prisma"
 import cloudinary from "@/lib/cloudinary"
 import { NextResponse } from "next/server"
 
-export async function POST(req:Request){
+export async function POST(req: Request) {
+  const formData = await req.formData()
 
- const formData = await req.formData()
-
- const name = formData.get("name") as string
+  const name = formData.get("name") as string
   const description = formData.get("description") as string
- const price = Number(formData.get("price"))
- const gsm = Number(formData.get("gsm"))
- const category = formData.get("category") as string
- const stock = Number(formData.get("stock"))
- const file = formData.get("image") as File
+  const price = Number(formData.get("price"))
+  const gsm = Number(formData.get("gsm"))
+  const category = formData.get("category") as string
+  const stock = Number(formData.get("stock"))
 
- const bytes = await file.arrayBuffer()
- const buffer = Buffer.from(bytes)
+  const files = formData.getAll("images") as File[]
 
- const upload = await new Promise<any>((resolve,reject)=>{
+  const uploadedImages = await Promise.all(
+    files.map(async (file) => {
+      const bytes = await file.arrayBuffer()
+      const buffer = Buffer.from(bytes)
 
-  cloudinary.uploader.upload_stream(
-   { folder:"products" },
-   (error,result)=>{
-    if(result) resolve(result)
-    else reject(error)
-   }
-  ).end(buffer)
+      const result = await new Promise<any>((resolve, reject) => {
+        cloudinary.uploader.upload_stream(
+          { folder: "products" },
+          (error, result) => {
+            if (result) resolve(result)
+            else reject(error)
+          }
+        ).end(buffer)
+      })
 
- })
+      return result.secure_url
+    })
+  )
 
- const product = await prisma.product.create({
-  data:{
-   name,
-   slug: name.toLowerCase().replace(/\s+/g, "-"),
-   description,
-   price,
-   gsm,
-   category,
-   stock,
-   image:upload.secure_url
-  }
- })
+  const product = await prisma.product.create({
+    data: {
+      name,
+      slug: name.toLowerCase().replace(/\s+/g, "-"),
+      description,
+      price,
+      gsm,
+      category,
+      stock,
+      image: uploadedImages,
+    },
+  })
 
- return NextResponse.json(product)
+  return NextResponse.json(product)
 }
 
 export async function GET(req: Request) {

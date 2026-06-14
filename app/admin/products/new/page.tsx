@@ -14,7 +14,7 @@ export default function NewProduct(){
   stock:""
  })
 
- const [image,setImage] = useState<File | null>(null)
+ const [images, setImages] = useState<FileList | null>(null)
 
  const createProduct = async(e:any)=>{
   e.preventDefault()
@@ -28,10 +28,11 @@ export default function NewProduct(){
   data.append("category",form.category)
   data.append("stock",form.stock)
 
-  if(image){
-   data.append("image",image)
-  }
-
+  if (images) {
+  Array.from(images).forEach((file) => {
+    data.append("images", file)
+  })
+}
   await axios.post("/api/products",data)
 
   alert("Product created")
@@ -88,10 +89,12 @@ export default function NewProduct(){
     {/* Image Upload */}
 
     <input
-     type="file"
-     onChange={(e)=>setImage(e.target.files?.[0] || null)}
-     className="border p-2 w-full"
-    />
+ type="file"
+ multiple
+ accept="image/*"
+ onChange={(e) => setImages(e.target.files)}
+ className="border p-2 w-full"
+/>
 
     <button className="bg-black text-white px-6 py-2 rounded">
      Create

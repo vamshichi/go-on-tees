@@ -17,7 +17,7 @@ export default function ProductCard({ product }: any) {
   <div className="border rounded-xl p-4 hover:shadow-xl transition">
 
    <Image
-    src={product.image}
+    src={product.image[0]}
     alt={product.name}
     width={300}
     height={300}
